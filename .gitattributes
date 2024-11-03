@@ -1,0 +1,1 @@
+trained-31-jan-OPQ64_256-IVF262144_HNSW32-PQ64.index filter=lfs diff=lfs merge=lfs -text
