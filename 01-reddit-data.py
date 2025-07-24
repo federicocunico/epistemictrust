@@ -1,3 +1,4 @@
+from functools import reduce
 import zstandard as zstd
 import pandas as pd
 import numpy as np
