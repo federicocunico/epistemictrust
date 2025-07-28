@@ -21,6 +21,8 @@ from urllib.parse import urlparse
 # You'll need to change these and re-run with however many archives you want to unpack
 dirname = "RC_2020-01"
 fname = "RC_2020-01.zst"
+os.makedirs(dirname, exist_ok=True)
+os.makedirs("processed", exist_ok=True)
 
 # PushShift data import code
 
@@ -54,7 +56,7 @@ def decompress_zst(pushshift_zst_file, fields, pattern="csv-%d.csv", verbose=Tru
               chunk_count = chunk_count + 1
               if verbose and chunk_count % 10 == 0: print("Processed %dMB" % (chunk_count * 16))
               if chunk_count % 200 == 0:
-                  with open(pattern % file_count, 'w') as out:
+                  with open(pattern % file_count, 'w', encoding='utf-16') as out:
                       csv_out = csv.writer(out)
                       if fields is not None:
                         csv_out.writerow(fields)
@@ -62,7 +64,7 @@ def decompress_zst(pushshift_zst_file, fields, pattern="csv-%d.csv", verbose=Tru
                           csv_out.writerow(row)
                   file_count = file_count + 1
                   data = []
-  with open(pattern % file_count,'w') as out: # Remainder
+  with open(pattern % file_count,'w', encoding='utf-16') as out: # Remainder
       csv_out = csv.writer(out)
       if fields is not None:
         csv_out.writerow(fields)
@@ -173,7 +175,7 @@ bots = ["AutoModerator", "PoliticsModeratorBot", "autotldr", "SnapshillBot", "Ce
         "ContextualRobot", "rBitcoinMod", "randia-bot", "BotThatSaysBro", "TrumpBrickBot", "outlinelinkbot", "TrumpTrainBot", "SenatorsInfoBot",
         "tutestbot", "BM2018Bot", "ukpolbot"]
 
-with open("subreddit_sample.txt", "r") as f:
+with open("subreddit_sample.txt", "r", encoding='utf-16') as f:
   subreddit_sample = [x for x in f.read().split("\n") if x != ""]
 
 for f in files("rawsents/"):
